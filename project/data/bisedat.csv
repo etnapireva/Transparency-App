@@ -1,0 +1,38 @@
+Pyetja,Pergjigjja,Sentiment
+transparency,I am not here to replace people. I am here to assist and make government processes more efficient and transparent.,Neutral
+healthcare,We are implementing innovative policies to improve healthcare and digital services.,Neutral
+policies,"Mund të flas për tema si arsimi, transparenca, barazia gjinore, ekonomia dhe teknologjia.",Neutral
+hi,"Unë mund të flas për qeverinë, arsimin, teknologjinë dhe shëndetësinë. Pyet çfarë të duash! "
+pershendetje,"Unë mund të flas për qeverinë, arsimin, teknologjinë dhe shëndetësinë. Pyet çfarë të duash! "
+transparency,Transparency is key. Citizens should always know how decisions are made. 
+healthcare,We are implementing innovative policies to improve healthcare and digital services. 
+what about transparency?,Transparency is key. Citizens should always know how decisions are made. 
+citizens,Transparency is key. Citizens should always know how decisions are made. 
+exit,"Unë mund të flas për qeverinë, arsimin, teknologjinë dhe shëndetësinë. Pyet çfarë të duash! "
+hi,Mund të flas për qeverinë, arsimin, shëndetësinë, teknologjinë dhe ekonominë. 
+pershendetje,Pyet për ndonjë temë të qeverisë ose inovacionit, dhe unë do përpiqem të përgjigjem! 
+qka mendon per qeverine,Pyet për ndonjë temë të qeverisë ose inovacionit, dhe unë do përpiqem të përgjigjem! 
+qeveria,Pyet për ndonjë temë të qeverisë ose inovacionit, dhe unë do përpiqem të përgjigjem! 
+society,Pyet për ndonjë temë të qeverisë ose inovacionit, dhe unë do përpiqem të përgjigjem! 
+transparency,Qeveria jonë punon për të rritur transparencën në çdo proces. 
+what about transparency,Qeveria jonë punon për të rritur transparencën në çdo proces. 
+what about technology,Teknologjia dhe digjitalizimi janë fokus i qeverisë sonë. 
+pershendetje,"Mund të flas për qeverinë, teknologjinë, ekonominë dhe transparencën.",0.0
+hi,"Shpresoj që pyetja të lidhet me shërbimet publike ose arsimin, atëherë mund të jap një përgjigje më të saktë.",0.0
+technology,"Nuk kam informacion të detajuar për këtë, por mund të flasim për politikat dhe inovacionet tona.",0.0
+what about technology,"Shpresoj që pyetja të lidhet me shërbimet publike ose arsimin, atëherë mund të jap një përgjigje më të saktë.",0.0
+what about healthcare,We are implementing innovative policies to improve healthcare and digital services.,0.0
+nuk me pelqen qeveria,"Shpresoj që pyetja të lidhet me shërbimet publike ose arsimin, atëherë mund të jap një përgjigje më të saktë.",0.0
+I dont like the ehalthcare system,"Shpresoj që pyetja të lidhet me shërbimet publike ose arsimin, atëherë mund të jap një përgjigje më të saktë.",0.0
+i dont like the healthcare system,We are implementing innovative policies to improve healthcare and digital services.,0.0
+i dont like the technology,"Nuk kam informacion të detajuar për këtë, por mund të flasim për politikat dhe inovacionet tona.",0.0
+i dont like transparency,I am not here to replace people. I am here to assist and make government processes more efficient and transparent.,0.0
+Ti: Jam shumë i lumtur me qeverinë!Ti: Nuk më pëlqen mungesa e transparencës.Ti: Si po ecin politikat për arsimin?,"Nuk kam informacion të detajuar për këtë, por mund të flasim për politikat dhe inovacionet tona.",0.0
+2025-10-07T09:15:30.616957,pershendetje,Ju falënderoj për mbështetjen. I am not here to replace people. I am here to assist and make government processes more efficient and transparent.,positive
+2025-10-07T09:15:40.144308,qka menodni per arsimin,Our government focuses on education and AI literacy to prepare citizens for the future.,neutral
+2025-10-07T09:15:44.660143,edukimi,Ju falënderoj për mbështetjen. Our government focuses on education and AI literacy to prepare citizens for the future.,positive
+2025-10-07T09:15:49.330708,te dua,"Pyet për ndonjë temë të qeverisë, inovacionit, arsimit ose shëndetësisë.",negative
+2025-10-07T09:15:55.051136,qka mendoni per qeverine,Ju falënderoj për mbështetjen. I am not here to replace people. I am here to assist and make government processes more efficient and transparent.,positive
+2025-10-07T09:16:01.143843,transparency,Ju falënderoj për mbështetjen. Transparency is key. Citizens should always know how decisions are made.,positive
+2025-11-03T10:28:48.001778,hi,Ju falënderoj për mbështetjen. I am not here to replace people. I am here to assist and make government processes more efficient and transparent.,positive
+2025-11-03T10:28:51.561117,qk apo bon,Ju falënderoj për mbështetjen. This country has lost hope… Are we going to put Diella in jail or pull the plug? [Burimi: CNA (TV report) / local press],positive
