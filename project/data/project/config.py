@@ -2,16 +2,20 @@
 # CONFIGURATION FILE - DIELLA AI
 # ==========================================
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Data
 DATA_PATH = "diella_speeches_clean.csv"
 
 # Models
 VECTOR_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
 
-# Groq Configuration (Using Groq instead of Ollama)
 USE_GROQ = True
-GROQ_API_KEY = "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"
-GROQ_MODEL = "llama-3.1-8b-instant"
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
 
 # Q&A Settings
