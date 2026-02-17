@@ -17,7 +17,7 @@ Streamlit, Pandas, Plotly, scikit-learn, VADER, SentenceTransformer, FAISS, Open
 
 ## Përdorimi
 1. Ekzekutoni: `streamlit run app.py`.
-2. Eksploroni tabs dhe bëni pyetje në Q&A.
+2. Eksploroni tabs dhe bëni pyetje në Q&A. (duhet te behet gjenerimi i nje Groq API KEY per perdorimin e Q&A)
 
 ## Struktura e të Dhënave
 CSV me tekste në anglisht/shqip, folës dhe datë.
