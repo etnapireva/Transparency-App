@@ -20,13 +20,17 @@ import run_evaluation
 
 st.set_page_config(page_title=PAGE_TITLE, layout=PAGE_LAYOUT)
 
-# Sidebar: gradient si header (dark theme)
+# Sidebar + main: gradient si header, pa kornizë (melt into background)
 st.markdown(
     """
     <style>
+    /* Sfondi i faqes së përgjithshme – që header-i të shkrihet me të */
+    .stApp, section.main .block-container {
+        background-color: #010409;
+    }
     section[data-testid="stSidebar"] {
-        background: radial-gradient(circle at top left, #1e293b, #020617);
-        border-right: 1px solid #1f2937;
+        background: radial-gradient(ellipse 100% 120% at 0% 0%, #0f172a 0%, #020617 50%, #010409 100%);
+        border-right: none;
     }
     section[data-testid="stSidebar"] > div {
         background: transparent;
@@ -53,8 +57,7 @@ header_html = """
     display: flex; 
     align-items: center; 
     padding: 10px 24px; 
-    border-bottom: 1px solid #1f2937;
-    background: radial-gradient(circle at top left, #1e293b, #020617);
+    background: radial-gradient(ellipse 120% 100% at 50% 0%, #0f172a 0%, #020617 40%, #010409 100%);
 ">
     <div style="position: relative; margin-right: 16px;">
         <!-- Ikonë dielli -->
@@ -114,34 +117,46 @@ def init_vector_store(df):
 df = init_data()
 model, index = init_vector_store(df)
 
-st.title("DIELLA AI - Analiza e Deklaratave Publike")
+# Pjesa nën header: titull + përshkrim (në linjë me dark theme)
 st.markdown(
-    "Analiza interaktive me sentiment, tematikë, stil, krahasim folësish dhe Q&A si asistent AI."
+    """
+    <div style="
+        padding: 1rem 0 1.25rem 0;
+        border-bottom: 1px solid #1f2937;
+        margin-bottom: 0.5rem;
+    ">
+        <h2 style="
+            margin: 0 0 0.35rem 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #e5e7eb;
+            letter-spacing: 0.02em;
+        ">Analiza e Deklaratave Publike</h2>
+        <p style="
+            margin: 0;
+            font-size: 0.95rem;
+            color: #9ca3af;
+            line-height: 1.45;
+        ">Analiza interaktive me sentiment, tematikë, stil, krahasim folësish dhe Q&A si asistent AI.</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
 # ==========================================
-# SIDEBAR - FILTERS
+# SIDEBAR - FILTERS (të thjeshta: folës + datë)
 # ==========================================
 
 st.sidebar.header("Filtrimi i Deklaratave")
 
-speaker_list = (
+speaker_list_raw = (
     sorted(df["Speaker"].dropna().unique().tolist()) if not df.empty else []
 )
-if len(speaker_list) == 0:
-    speaker_list = ["Unknown"]
+if len(speaker_list_raw) == 0:
+    speaker_list_raw = ["Unknown"]
+speaker_list = ["Të gjithë"] + speaker_list_raw
 
-speakers_selected = st.sidebar.multiselect(
-    "Folës(i)",
-    options=speaker_list,
-    default=speaker_list,
-    help="Zgjidhni një ose më shumë folës. Zbrazni për të gjithë.",
-    key="sidebar_speakers",
-)
-
-# Nëse përdoruesi hoqi të gjitha, konsiderojmë "të gjithë"
-if not speakers_selected:
-    speakers_selected = speaker_list
+speaker = st.sidebar.selectbox("Zgjidh folësin", speaker_list, index=0)
 
 date_from = st.sidebar.date_input(
     "Data nga",
@@ -150,7 +165,6 @@ date_from = st.sidebar.date_input(
         if not df.empty and df["Date"].notna().any()
         else pd.to_datetime("2020-01-01")
     ),
-    key="sidebar_date_from",
 )
 date_to = st.sidebar.date_input(
     "Data deri",
@@ -159,30 +173,13 @@ date_to = st.sidebar.date_input(
         if not df.empty and df["Date"].notna().any()
         else pd.to_datetime("2025-12-31")
     ),
-    key="sidebar_date_to",
 )
-
-sentiment_options = ["Pozitiv", "Neutral", "Negativ"]
-sentiments_selected = st.sidebar.multiselect(
-    "Sentiment",
-    options=sentiment_options,
-    default=sentiment_options,
-    help="Filtro sipas etiketës së sentimentit.",
-    key="sidebar_sentiments",
-)
-if not sentiments_selected:
-    sentiments_selected = sentiment_options
-
-if st.sidebar.button("Pastro filtrat", key="sidebar_reset"):
-    for key in ("sidebar_speakers", "sidebar_sentiments", "sidebar_date_from", "sidebar_date_to"):
-        st.session_state.pop(key, None)
-    st.rerun()
 
 # Apply filters
 if not df.empty:
     df_filtered = df.copy()
-    df_filtered = df_filtered[df_filtered["Speaker"].isin(speakers_selected)]
-    df_filtered = df_filtered[df_filtered["SentimentLabel"].isin(sentiments_selected)]
+    if speaker != "Të gjithë":
+        df_filtered = df_filtered[df_filtered["Speaker"] == speaker]
     if pd.api.types.is_datetime64_any_dtype(df_filtered["Date"]):
         df_filtered = df_filtered[
             (df_filtered["Date"] >= pd.to_datetime(date_from))
@@ -192,7 +189,7 @@ else:
     df_filtered = df.copy()
 
 st.sidebar.markdown("---")
-st.sidebar.caption(f"**{len(df_filtered)}** deklaratë(a) sipas filtrit")
+st.sidebar.caption(f"**{len(df_filtered)}** deklaratë(a)")
 st.sidebar.markdown("© 2025 Etna Pireva")
 
 # ==========================================
@@ -266,10 +263,24 @@ with tab_dashboard:
         else:
             st.info("Nuk ka trend ditore.")
 
-    # Row 3: Latest statements
+    # Row 3: Latest statements (numri i zgjedhur + zgjedhje gjuhe)
     st.subheader("Deklaratat e Fundit")
+    n_last = st.selectbox(
+        "Numri i deklaratave",
+        options=[5, 10, 20],
+        index=0,
+        key="dashboard_n_last",
+    )
+    lang_last = st.radio(
+        "Gjuha e tekstit",
+        options=["Shqip", "English"],
+        index=0,
+        horizontal=True,
+        key="dashboard_lang",
+    )
+    text_col = "Speech_SQ" if lang_last == "Shqip" else "Speech"
     last_statements = (
-        df_filtered.sort_values("Date", ascending=False).head(5)
+        df_filtered.sort_values("Date", ascending=False).head(n_last)
         if not df_filtered.empty
         else pd.DataFrame()
     )
@@ -285,12 +296,15 @@ with tab_dashboard:
             if sentiment == "Pozitiv"
             else ("↓" if sentiment == "Negativ" else "→")
         )
+        text = str(row.get(text_col, ""))[:200]
+        if len(str(row.get(text_col, ""))) > 200:
+            text += "..."
         st.markdown(
             f"""
         <div style="padding:10px; margin-bottom:5px; 
             border-left:4px solid {color}; 
             background-color:#1e293b; color:#e2e8f0;">
-            <b>{row.get('Speaker', '-')} ({row.get('Date') if pd.notna(row.get('Date')) else '-'}):</b> {str(row.get('Speech', ''))[:200]}...<br>
+            <b>{row.get('Speaker', '-')} ({row.get('Date') if pd.notna(row.get('Date')) else '-'}):</b> {text}<br>
             <span style="color:{color}; font-weight:bold;">
                 {arrow} SentimentScore: {round(row.get('SentimentScore', 0), 2)}, 
                 TTR: {round(row.get('TTR', 0), 3)}
@@ -568,8 +582,8 @@ with tab4:
 
     speakers_to_compare = st.multiselect(
         "Zgjidh folës për grafikët e krahasimit",
-        speaker_list,
-        default=speaker_list[:2] if len(speaker_list) >= 2 else speaker_list,
+        speaker_list_raw,
+        default=speaker_list_raw[:2] if len(speaker_list_raw) >= 2 else speaker_list_raw,
     )
 
     if len(speakers_to_compare) >= 2:

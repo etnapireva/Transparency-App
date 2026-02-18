@@ -19,6 +19,7 @@ from sklearn.metrics import (
 )
 
 from config import DATA_PATH
+from utils.data_loader import load_data
 from utils.nlp_analysis import add_sentiment, get_nmf_artifacts_and_top_words
 
 
@@ -145,14 +146,15 @@ def compute_topic_coherence_npmi(df: pd.DataFrame, speech_col: str = "Speech") -
 
 
 def run_topic_coherence(data_path: Path) -> dict | None:
-    """Load main data (no NLP preprocess), fit NMF, return coherence."""
+    """Load main data via app's load_data (same CSV parsing), fit NMF, return coherence."""
     if not data_path.exists():
         print(f"Data file not found: {data_path}")
         return None
-    df = pd.read_csv(data_path, nrows=500)
-    if "Speech" not in df.columns:
-        print("Data CSV must have a 'Speech' column.")
+    df, err = load_data(str(data_path))
+    if err or df is None or df.empty:
+        print(f"Could not load data: {err or 'empty'}")
         return None
+    df = df.head(500)
     coherence = compute_topic_coherence_npmi(df)
     if coherence is None:
         return None
