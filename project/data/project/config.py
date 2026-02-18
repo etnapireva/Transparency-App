@@ -3,15 +3,19 @@
 # ==========================================
 
 import os
+
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
 
 # Data
 DATA_PATH = "diella_speeches_clean.csv"
 
 # Models
 VECTOR_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
+
 
 USE_GROQ = True
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")

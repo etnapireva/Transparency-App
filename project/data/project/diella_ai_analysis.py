@@ -44,7 +44,7 @@ header_html = """
             font-size: 28px; 
             font-weight: bold; 
             background: linear-gradient(to right, #6366f1, #ec4899); 
-            -webkit-background-clip: text; 
+            # -webkit-background-clip: text; 
             color: transparent;
         ">DIELLA AI</h1>
         <p style="margin: 0; color: #6b7280;">Sistemi i Transparencës së Politikave</p>
@@ -175,17 +175,17 @@ with tab_dashboard:
         )
         st.metric("Folësi më Aktiv", active_speaker)
 
-    with colD:
-        diella_sent = (
-            round(
-                df_filtered[df_filtered["Speaker"] == "Diella"][
-                    "SentimentScore"
-                ].mean()
-            )
-            if "Diella" in df_filtered["Speaker"].values
-            else 0
-        )
-        st.metric("Sentimenti i Dielës", diella_sent)
+    # with colD:
+    #     diella_sent = (
+    #         round(
+    #             df_filtered[df_filtered["Speaker"] == "Diella"][
+    #                 "SentimentScore"
+    #             ].mean()
+    #         )
+    #         if "Diella" in df_filtered["Speaker"].values
+    #         else 0
+    #     )
+    #     st.metric("Sentimenti i Dielës", diella_sent)
 
     # Row 2: Charts
     col1, col2 = st.columns(2)
