@@ -142,3 +142,36 @@ def add_topics(df):
         df["TopKeywords"] = ""
 
     return df
+
+
+def get_nmf_artifacts_and_top_words(df, speech_col="Speech"):
+    """
+    Fit NMF on the corpus and return vectorizer, model, and top words per topic.
+    Used for evaluation (e.g. topic coherence).
+    """
+    import numpy as np
+    non_empty = (
+        df[speech_col].astype(str).str.strip().replace("", np.nan).dropna()
+    )
+    if len(non_empty) < 2:
+        return None, None, []
+
+    tfidf_vectorizer = TfidfVectorizer(
+        max_features=TFIDF_MAX_FEATURES,
+        min_df=TFIDF_MIN_DF,
+        stop_words="english",
+    )
+    tfidf = tfidf_vectorizer.fit_transform(non_empty)
+    n_components = min(NUM_TOPICS, tfidf.shape[0] - 1)
+    nmf_model = NMF(
+        n_components=n_components,
+        random_state=42,
+        max_iter=1000,
+    )
+    nmf_model.fit(tfidf)
+    feature_names = tfidf_vectorizer.get_feature_names_out()
+    top_words_per_topic = []
+    for topic in nmf_model.components_:
+        top_idx = topic.argsort()[:-NUM_TOP_WORDS - 1:-1]
+        top_words_per_topic.append([feature_names[i] for i in top_idx])
+    return tfidf_vectorizer, nmf_model, top_words_per_topic

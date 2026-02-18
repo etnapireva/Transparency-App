@@ -133,12 +133,7 @@ def create_sentiment_bar_chart(df_filtered):
 def create_topics_bar_chart(df_filtered):
     """
     Create topics distribution bar chart.
-    
-    Args:
-        df_filtered (pd.DataFrame): Filtered dataframe
-        
-    Returns:
-        plotly.graph_objects.Figure: Bar chart
+    X-axis shows topic keyword labels (truncated) instead of topic ID.
     """
     if df_filtered.empty:
         return None
@@ -149,17 +144,23 @@ def create_topics_bar_chart(df_filtered):
         .reset_index()
         .rename(columns={"Speech": "Vlera"})
     )
+    # Label for display: first ~40 chars of keywords, or "Tema N: kw1, kw2..."
+    topic_data["TopicLabel"] = topic_data.apply(
+        lambda r: (str(r["TopKeywords"])[:42] + "…") if len(str(r["TopKeywords"])) > 42 else str(r["TopKeywords"]) or f"Tema {int(r['Topic'])}",
+        axis=1,
+    )
 
     fig = px.bar(
         topic_data,
-        x="Topic",
+        x="TopicLabel",
         y="Vlera",
         text="Vlera",
         color="Vlera",
         color_continuous_scale="plasma",
-        hover_data=["TopKeywords"],
+        hover_data={"TopicLabel": False, "TopKeywords": True, "Vlera": True, "Topic": True},
     )
     fig.update_traces(textposition="outside")
+    fig.update_xaxes(tickangle=-45, title="Tema (fjalëkyçe)")
     return fig
 
 
