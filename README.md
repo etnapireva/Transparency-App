@@ -1,6 +1,5 @@
 # DIELLA AI — Sistemi i Transparencës së Politikave
 
-Aplikacion Streamlit për analizën e deklaratave publike (ministria Diella, Rama, opozita). Përdor NLP për sentiment (VADER), tema (NMF), metrika stili (TTR), krahasim folësish dhe Q&A në shqip. Projekt tezë master — Etna Pireva.
 Aplikacion Streamlit për analizën e deklaratave publike (ministria Diella, Rama, opozita). Përdor NLP për sentiment (VADER), tema (NMF), metrika stili (TTR), krahasim folësish dhe Q&A në shqip. Projekt— Etna Pireva.
 
 ---

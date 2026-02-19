@@ -46,10 +46,12 @@ def calculate_ttr(text):
 def add_sentiment(df):
     """
     Add sentiment analysis columns to dataframe.
-    Uses VADER sentiment analyzer.
+    Uses VADER sentiment analyzer on the 'Speech' column (English text).
+    Declarations are stored in both English (Speech) and Albanian (Speech_SQ);
+    we use English here so VADER, which is built for English, gives reliable scores.
     
     Args:
-        df (pd.DataFrame): Input dataframe with 'Speech' column
+        df (pd.DataFrame): Input dataframe with 'Speech' column (English)
         
     Returns:
         pd.DataFrame: Dataframe with 'SentimentScore' and 'SentimentLabel' columns

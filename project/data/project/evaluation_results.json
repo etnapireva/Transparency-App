@@ -1,9 +1,9 @@
 {
   "sentiment": {
-    "accuracy": 0.8,
-    "f1_macro": 0.8009,
-    "f1_weighted": 0.8009,
-    "classification_report": "              precision    recall  f1-score   support\n\n     Negativ       0.83      0.71      0.77         7\n     Neutral       1.00      0.71      0.83         7\n     Pozitiv       0.67      1.00      0.80         6\n\n    accuracy                           0.80        20\n   macro avg       0.83      0.81      0.80        20\nweighted avg       0.84      0.80      0.80        20\n",
+    "accuracy": 0.7619,
+    "f1_macro": 0.7659,
+    "f1_weighted": 0.7659,
+    "classification_report": "              precision    recall  f1-score   support\n\n     Negativ       0.71      0.71      0.71         7\n     Neutral       1.00      0.71      0.83         7\n     Pozitiv       0.67      0.86      0.75         7\n\n    accuracy                           0.76        21\n   macro avg       0.79      0.76      0.77        21\nweighted avg       0.79      0.76      0.77        21\n",
     "confusion_matrix": [
       [
         5,
@@ -16,7 +16,7 @@
         1
       ],
       [
-        0,
+        1,
         0,
         6
       ]
@@ -26,6 +26,10 @@
       "Neutral",
       "Pozitiv"
     ],
-    "n_samples": 20
+    "n_samples": 21
+  },
+  "topic_coherence": {
+    "npmi_mean": 0.6147,
+    "n_docs_used": 78
   }
 }

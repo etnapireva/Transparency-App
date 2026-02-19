@@ -32,10 +32,10 @@ def build_vector_store(df):
         # Load model
         model = SentenceTransformer(VECTOR_MODEL)
 
-        # Encode texts to embeddings
+        # Encode texts to embeddings (show_progress_bar=False për Streamlit që të mos ngatërrohet me spinner)
         embeddings = model.encode(
             texts,
-            show_progress_bar=True,
+            show_progress_bar=False,
             convert_to_numpy=True,
         )
 
