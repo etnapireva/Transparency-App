@@ -191,6 +191,7 @@ else:
 st.sidebar.markdown("---")
 st.sidebar.caption(f"**{len(df_filtered)}** deklaratë(a)")
 st.sidebar.markdown("© 2025 Etna Pireva")
+st.sidebar.caption("Punim diplome — Mentor Msc. Alma Novobërdaliu — UBT 2025–2026")
 
 # ==========================================
 # TABS
