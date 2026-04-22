@@ -4,6 +4,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(BASE_DIR, "diella_speeches_clean.csv")
+
+import pandas as pd
+df = pd.read_csv(file_path)
+
 import pandas as pd
 from config import DATA_PATH, GROQ_API_KEY, GROQ_MODEL, MAX_QA_DOCS, MAX_CHARS_CONTEXT
 from utils.data_loader import load_data
@@ -124,6 +133,6 @@ def run_evaluation():
     }
     return summary, results
 
-
+  
 if __name__ == "__main__":
     run_evaluation()
